@@ -1,11 +1,36 @@
 ## Docker commands used to build the application 
-# TODO: insert the docker build command
+docker build -t techtrends -f .\Dockerfile .\techtrends
 
 ## Docker commands used to run the application
-# TODO: insert the docker run command
+docker run -d --name techtrends -p 7111:3111 techtrends
 
 ## Docker commands used to get the application logs
-# TODO: insert the docker logs command
+docker logs techtrends
 
 ## Logs from the container running the TechTrends application
-# TODO: paste logs from the Docker container 
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:3111/ (Press CTRL+C to quit)
+172.17.0.1 - - [12/Sep/2021 15:56:09] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [12/Sep/2021 15:56:09] "GET /static/css/main.css HTTP/1.1" 200 -
+172.17.0.1 - - [12/Sep/2021 15:56:09] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:__main__:12/09/21, 15:56:31, "About Us" page retrieved!
+INFO:__main__:12/09/21, 15:56:31, "About Us" page retrieved!
+172.17.0.1 - - [12/Sep/2021 15:56:31] "GET /about HTTP/1.1" 200 -
+172.17.0.1 - - [12/Sep/2021 15:56:40] "GET / HTTP/1.1" 200 -
+INFO:__main__:12/09/21, 15:56:42, Article "2020 CNCF Annual Report" retrieved!
+INFO:__main__:12/09/21, 15:56:42, Article "2020 CNCF Annual Report" retrieved!
+172.17.0.1 - - [12/Sep/2021 15:56:42] "GET /1 HTTP/1.1" 200 -
+172.17.0.1 - - [12/Sep/2021 15:56:46] "GET / HTTP/1.1" 200 -
+INFO:__main__:12/09/21, 15:56:50, Tried to retrieve article with non-existent ID 100!
+INFO:__main__:12/09/21, 15:56:50, Tried to retrieve article with non-existent ID 100!
+172.17.0.1 - - [12/Sep/2021 15:56:50] "GET /100 HTTP/1.1" 404 -
+172.17.0.1 - - [12/Sep/2021 15:56:52] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [12/Sep/2021 15:56:54] "GET /create HTTP/1.1" 200 -
+INFO:__main__:12/09/21, 15:57:15, Article "Docker rocks!" created!
+INFO:__main__:12/09/21, 15:57:15, Article "Docker rocks!" created!
+172.17.0.1 - - [12/Sep/2021 15:57:15] "POST /create HTTP/1.1" 302 -
+172.17.0.1 - - [12/Sep/2021 15:57:15] "GET / HTTP/1.1" 200 -
