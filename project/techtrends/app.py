@@ -29,17 +29,12 @@ def get_db_connection():
     DB_CONNECTION_COUNT += 1
     return connection
 
-def close_connection(connection):
-    global DB_CONNECTION_COUNT
-    connection.close()
-    DB_CONNECTION_COUNT -= 1
-
 # Function to get a post using its ID
 def get_post(post_id):
     connection = get_db_connection()
     post = connection.execute('SELECT * FROM posts WHERE id = ?',
                         (post_id,)).fetchone()
-    close_connection(connection)
+    connection.close()
     return post
 
 # Define the Flask application
@@ -51,7 +46,7 @@ app.config['SECRET_KEY'] = 'your secret key'
 def index():
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
-    close_connection(connection)
+    connection.close()
     return render_template('index.html', posts=posts)
 
 # Define how each individual article is rendered 
@@ -86,7 +81,7 @@ def create():
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
                          (title, content))
             connection.commit()
-            close_connection(connection)
+            connection.close()
             logger.info('Article "%s" created!', title)
             return redirect(url_for('index'))
 
@@ -100,7 +95,7 @@ def healthz():
 def metrics():
     connection = get_db_connection()
     post_count = connection.execute('SELECT COUNT(*) FROM posts').fetchone()[0]
-    close_connection(connection)
+    connection.close()
     return jsonify(db_connection_count=DB_CONNECTION_COUNT, post_count=post_count)
 
 # start the application on port 3111
